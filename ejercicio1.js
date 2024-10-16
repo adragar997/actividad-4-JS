@@ -1,8 +1,18 @@
+let mostrarBoton = true
 let boton = document.getElementById("ver-mas-boton")
+let caja = document.getElementById("box")
+let botonToggle = document.getElementById("toggleBtn")
+let botonAleatorio = document.getElementById("randomBtn")
+let botonAgregarNombre = document.getElementById("addBtn")
 let mostrarContenido = document.getElementById("texto-informatica")
 let botonAgregar = document.getElementById("addItemBtn")
 let lista = document.getElementById("itemsList")
+let listaTarea = document.getElementById("taskList")
+let listaNombre = document.getElementById("nameList")
 let textoIntroducido = document.getElementById("newItemInput")
+let textoTareaIntroducida = document.getElementById("newTaskInput")
+let textoNombreIntroducido = document.getElementById("inputName")
+let botonAgregarTarea = document.getElementById("addTaskBtn")
 let frasesFrikisInformaticas = ["jaja","no","tiene","gracia"]
 let colores = [
 "#ff0000", 
@@ -60,6 +70,38 @@ botonAgregar.addEventListener('click',function(){
     nuevaInsercion.appendChild(imagenDelete)
 })
 
+botonAgregarNombre.addEventListener('click',function(){
+    let nuevaInsercion = document.createElement("li")
+    nuevaInsercion.innerHTML = textoNombreIntroducido.value
+
+    listaNombre.appendChild(nuevaInsercion)  
+})
+
+botonAleatorio.addEventListener('click',function(){
+    numeroSeleccionado = nombreAleatorio()
+    nombre = listaNombre.children[numeroSeleccionado].textContent
+    listaNombre.children[numeroSeleccionado].style.backgroundColor = "yellow"
+    listaNombre.children[numeroSeleccionado].innerHTML = " - Se ha elegido : " +nombre
+})
+
+botonAgregarTarea.addEventListener('click',function(){
+    let nuevaInsercion = document.createElement("li")
+    nuevaInsercion.innerHTML = textoTareaIntroducida.value
+    let imagenEliminar = document.createElement("img")
+
+    imagenEliminar.setAttribute('src',"eliminar.png")
+    imagenEliminar.setAttribute('width',"30")
+    imagenEliminar.setAttribute('onclick',"eliminarTarea(this)")
+
+    listaTarea.appendChild(nuevaInsercion)
+    nuevaInsercion.appendChild(imagenEliminar)
+
+})
+
+botonToggle.addEventListener('click',function(){
+    toggleBox()
+})
+
 function ponerChecked(imagen){
     nodoPadre = imagen.parentElement
     nodoPadre.style.color = "green"
@@ -69,4 +111,23 @@ function ponerChecked(imagen){
 function eliminar(imagen){
     nodoPadre = imagen.parentElement
     nodoPadre.remove()
+}
+
+function eliminarTarea(imagen){
+    nodoPadre = imagen.parentElement
+    nodoPadre.remove()
+}
+
+function nombreAleatorio(){
+    return Math.floor(Math.random()* listaNombre.children.length)
+}
+
+function toggleBox(){
+    if (mostrarBoton) {
+        caja.style.display = "block"
+        mostrarBoton = false
+    }else {
+        caja.style.display = "none"
+        mostrarBoton = true
+    }
 }
